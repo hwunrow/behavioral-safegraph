@@ -91,7 +91,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--root", type=str, default='G://My Drive/Research/Safegraph/data/')
     parser.add_argument(
-        "--out_dir", type=str, default='G://My Drive/Research/Safegraph/scratch/20221205')
+        "--out_dir", type=str, default='G://My Drive/Research/Safegraph/scratch/20221205/')
     args = parser.parse_args()
 
     batch_list = batch_dirs(args.root)
