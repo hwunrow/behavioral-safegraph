@@ -17,6 +17,7 @@ def batch_dirs(root, batchsize=25):
     for i in range(0, len(week_dirs), batchsize):
         batch = week_dirs[i:i+batchsize]
         batch_list.append(batch)
+    batch_list.sort()
     return batch_list
 
 
@@ -95,4 +96,5 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     batch_list = batch_dirs(args.root)
+    print(batch_list[8][0] + batch_list[8][-1])
     transform_dataframe(batch_list[8], args.root, args.out_dir)
