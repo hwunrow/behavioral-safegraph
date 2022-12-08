@@ -13,11 +13,11 @@ def batch_dirs(root, batchsize=25):
     """Returns a list of n lists
     """
     week_dirs = os.listdir(root)
+    week_dirs.sort()
     batch_list = []
     for i in range(0, len(week_dirs), batchsize):
         batch = week_dirs[i:i+batchsize]
         batch_list.append(batch)
-    batch_list.sort()
     return batch_list
 
 
@@ -77,12 +77,12 @@ def transform_dataframe(dirs, root, out_dir):
 
         weekly_df = pd.concat([weekly_df, sub_df])
 
-        filename_pre = f"{dirs[0]}_{dirs[-1]}"
-        path = f"{out_dir}/{filename_pre}.csv"
-        weekly_df.to_csv(path)
+    filename_pre = f"{dirs[0]}_{dirs[-1]}"
+    path = f"{out_dir}/{filename_pre}.csv"
+    weekly_df.to_csv(path)
 
-        with open(f'{out_dir}/{filename_pre}_bad_files.pickle', 'wb') as handle:
-            pickle.dump(bad_files, handle, protocol=pickle.HIGHEST_PROTOCOL)
+    with open(f'{out_dir}/{filename_pre}_bad_files.pickle', 'wb') as handle:
+        pickle.dump(bad_files, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
 if __name__ == "__main__":
@@ -96,5 +96,5 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     batch_list = batch_dirs(args.root)
-    print(batch_list[8][0] + batch_list[8][-1])
+    print([b[0] + b[-1] for b in batch_list])
     transform_dataframe(batch_list[8], args.root, args.out_dir)
